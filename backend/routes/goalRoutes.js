@@ -7,16 +7,10 @@ const {
         deleteGoal
     } = require('../controllers/goalController')
 
-/*router.get('/', (req,res)=>{
-    res.status(200).json({message:'Get goals'})
-})*/
+const {protect} = require('../middleware/authMiddleware')
 
-/*router.get('/', getGoals) //instead of the function above
+router.route('/').get(protect, getGoals).post(protect, setGoal) 
 
-router.post('/', setGoal)*/
-
-router.route('/').get(getGoals).post(setGoal) //instead of two function above
-
-router.route('/:id').put(updateGoal).delete(deleteGoal)
+router.route('/:id').put(protect, updateGoal).delete(protect,deleteGoal)
 
 module.exports = router
